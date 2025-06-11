@@ -15,11 +15,13 @@ Call `load_regex_files!` on the directory that contains regex files.
 3. `vec_from_str(text: &str)` Extracts all the matches in a given string.
 4. `vec_from_file(filename: &str)` Extracts all the matches after opening the given filename.
 
-The abstract class for matches within the regex_macro library contains `start_pos`, `end_pos`, and public fields for each named group inside of the `.re` file. Each field then contains a `start_pos`, `end_pos`, and `val` field.
+The abstract struct for matches within the regex_macro library contains `start_pos`, `end_pos`, and public fields for each named group inside of the `.re` file. Each field then contains a `start_pos`, `end_pos`, and `val` field.
 
----
+### Tips
 
-## Benefits
+- Use struct style naming convention for `.re` files. i.e. `Event.re` rather than `event.re`
+
+### Benefits
 
 - Files load automatically into precompiled code with macros which allows rust-analyzer to use provide type hints.
 - Regular expressions can be split over multiple lines and use comments to improve readability for regular expressions.
