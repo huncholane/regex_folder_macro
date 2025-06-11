@@ -111,6 +111,8 @@ pub fn load_regex_files(input: TokenStream) -> TokenStream {
             }
 
             impl #ident {
+                /// Extracts the first regex match for the given string
+                /// This match contains `start_pos`, `end_pos`, and `val`
                 pub fn from_str(text: &str) -> Option<Self> {
                     let re = &RE.#ident;
                     let captures = re.captures(text);
@@ -125,11 +127,15 @@ pub fn load_regex_files(input: TokenStream) -> TokenStream {
                     }
                 }
 
+                /// Extracts the first regex match for the text content of the given filename
+                /// This match contains `start_pos`, `end_pos`, and `val`
                 pub fn from_file(filename: &str) -> Result<Option<Self>, std::io::Error> {
                     let text = std::fs::read_to_string(filename)?;
                     Ok(Self::from_str(&text))
                 }
 
+                /// Extracts all regex matches for the given string
+                /// Each match contains a `start_pos`, `end_pos`, and each field for the given class contains `start_pos`, `end_pos`, and `val`
                 pub fn vec_from_str(text: &str) -> Vec<Self> {
                     let re = &RE.#ident;
                     re.captures_iter(text)
@@ -143,6 +149,8 @@ pub fn load_regex_files(input: TokenStream) -> TokenStream {
                         .collect()
                 }
 
+                /// Extracts all regex matches for the text contents of a given file
+                /// Each match contains a `start_pos`, `end_pos`, and each field for the given class contains `start_pos`, `end_pos`, and `val`
                 pub fn vec_from_file(filename: &str) -> Result<Vec<Self>, std::io::Error> {
                     let text = std::fs::read_to_string(filename)?;
                     Ok(Self::vec_from_str(&text))
