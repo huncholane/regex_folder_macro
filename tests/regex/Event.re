@@ -4,4 +4,4 @@
 \s{0,2}
 (?<ampm>[AMPM]{2})
 .
-(?<message>.+)
+(?<activity>.+)
