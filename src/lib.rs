@@ -5,6 +5,12 @@ use std::fs;
 use syn::{parse_macro_input, Ident, LitStr};
 
 #[proc_macro]
+/// Loads a folder filled with regular expression files ending with `.re`.
+///
+/// All regex files are loaded with the `m` and `x` flags.
+///
+/// - `m` (multi-line): `^` and `$` match the start and end of lines, not just the entire input.
+/// - `x` (extended): allows whitespace and comments starting with `#` inside the regex.
 pub fn load_regex_files(input: TokenStream) -> TokenStream {
     let folder_path = parse_macro_input!(input as LitStr).value();
 

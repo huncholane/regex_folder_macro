@@ -6,7 +6,12 @@ Allows for named groups in regular expressions to be generated from special file
 
 ## Usage
 
-Call `load_regex_files!` on the directory that contains regex files.
+### Initialization
+
+- Call the `load_regex_files!` macro on the directory that contains regex files.
+- Each file is loaded with the `m` and `x` flags
+  - `m` (multiline): `^` and `$` match the start and end of lines, not just the entire input.
+  - `x` (extended): allows whitespace and comments starting with `#` inside the regex.
 
 ### Each regex file is a class with 4 main functions
 
