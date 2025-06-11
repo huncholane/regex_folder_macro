@@ -1,0 +1,16 @@
+🧠 Focused Dev + Growth Schedule
+
+Time	Activity
+7:30–8:00 AM	Wake up + hydrate + light stretch
+8:00–8:45 AM	Gym (weights or intervals)
+9:00–9:30 AM	Breakfast + cooldown + planning
+9:30–12:00PM	Deep coding (core project)
+12:00–12:45PM	Lunch + decompress
+12:45–2:30PM	Coding or meetings if needed
+2:30–3:00 PM	Break or walk
+3:00–5:00 PM	Learning block (Rust, AI, etc)
+5:00–6:00 PM	Chill / side project / cleanup
+6:00–7:00 PM	Dinner + relax
+7:00–9:00 PM	Optional: build/test/hack ideas
+9:00–10:00 PM	Wind down (read, steam room, etc)
+10:00–10:30PM	Journal + sleep prep

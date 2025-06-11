@@ -1,0 +1,4 @@
+[alias]
+tr = "test --release"
+e = "run --example event"
+b = "build"
