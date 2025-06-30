@@ -34,7 +34,8 @@ pub fn load_regex_files(input: TokenStream) -> TokenStream {
 
     // Generate enum variants and compiled regex objects
     let variants = files.iter().map(|path| {
-        let variant_name = path.file_stem().unwrap().to_str().unwrap();
+        let base = path.file_stem().unwrap().to_str().unwrap();
+        let variant_name = &format!("{}RE", base);
         let ident = Ident::new(variant_name, proc_macro2::Span::call_site());
         quote! {
             pub #ident: regex::Regex
@@ -43,7 +44,8 @@ pub fn load_regex_files(input: TokenStream) -> TokenStream {
 
     // Generate struct initialization
     let init_fields = files.iter().map(|path| {
-        let variant_name = path.file_stem().unwrap().to_str().unwrap();
+        let base = path.file_stem().unwrap().to_str().unwrap();
+        let variant_name = &format!("{}RE", base);
         let ident = Ident::new(variant_name, proc_macro2::Span::call_site());
         let file_path = path.to_str().unwrap();
         quote! {
@@ -73,7 +75,8 @@ pub fn load_regex_files(input: TokenStream) -> TokenStream {
     };
 
     let structs = files.iter().map(|path| {
-        let variant_name = path.file_stem().unwrap().to_str().unwrap();
+        let base = path.file_stem().unwrap().to_str().unwrap();
+        let variant_name = &format!("{}RE", base);
         let ident = Ident::new(variant_name, proc_macro2::Span::call_site());
         let file_text = fs::read_to_string(path).unwrap();
         let re_str = format!(r"(?mx){}", file_text);
