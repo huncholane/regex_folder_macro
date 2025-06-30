@@ -1,6 +1,11 @@
 [package]
 name = "regex_macro"
-version = "0.1.0"
+description = "Generate code from regular expressions inside a folder with files ending in .re."
+repository = "https://github.com/huncholane/regex_macro"
+license = "MIT or Apache-2.0"
+documentation = "https://docs.rs/regex_macro"
+homepage = "https://github.com/huncholane/regex_macro"
+version = "0.1.1"
 edition = "2021"
 
 [dependencies]
