@@ -5,7 +5,7 @@ repository = "https://github.com/huncholane/regex_folder_macro"
 license = "MIT"
 documentation = "https://docs.rs/regex_folder_macro"
 homepage = "https://github.com/huncholane/regex_folder_macro"
-version = "0.1.1"
+version = "0.1.2"
 edition = "2021"
 
 [dependencies]
