@@ -145,7 +145,7 @@ pub fn load_regex_files(input: TokenStream) -> TokenStream {
 
                 /// Extracts all regex matches for the given string
                 /// Each match contains a `start_pos`, `end_pos`, and each field for the given class contains `start_pos`, `end_pos`, and `val`
-                pub fn vec_from_str(text: &str) -> Vec<Self> {
+                pub fn iter_from_str(text: &str) -> impl Iterator<Item = Self> + '_ {
                     let re = &RE.#ident;
                     re.captures_iter(text)
                         .map(|captures| {
@@ -155,7 +155,19 @@ pub fn load_regex_files(input: TokenStream) -> TokenStream {
                                 #(#field_initializers),*
                             }
                         })
-                        .collect()
+                }
+
+                /// Extracts all regex matches for the given string
+                /// Each match contains a `start_pos`, `end_pos`, and each field for the given class contains `start_pos`, `end_pos`, and `val`
+                pub fn vec_from_str(text: &str) -> Vec<Self> {
+                    Self::iter_from_str(text).collect()
+                }
+
+                /// Extracts all regex matches for the text contents of a given file
+                /// Each match contains a `start_pos`, `end_pos`, and each field for the given class contains `start_pos`, `end_pos`, and `val`
+                pub fn iter_from_file(filename: &str) -> Result<impl Iterator<Item = Self> + '_, std::io::Error> {
+                    let text = std::fs::read_to_string(filename)?;
+                    Ok(Self::iter_from_str(Box::leak(text.into_boxed_str())))
                 }
 
                 /// Extracts all regex matches for the text contents of a given file

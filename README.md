@@ -19,6 +19,8 @@ Allows for named groups in regular expressions to be generated from special file
 2. `from_file(filename: &str)` Finds a single match after opening the given filename.
 3. `vec_from_str(text: &str)` Extracts all the matches in a given string.
 4. `vec_from_file(filename: &str)` Extracts all the matches after opening the given filename.
+5. `iter_from_str(text: &str)` Extracts all the matches in a given string.
+6. `iter_from_file(filename: &str)` Extracts all the matches after opening the given filename.
 
 The abstract structure for matches within the regex_macro library contains `start_pos`, `end_pos`, and public fields for each named group inside of the `.re` file. Each field then contains a `start_pos`, `end_pos`, and `val` field.
 
@@ -39,9 +41,9 @@ The abstract structure for matches within the regex_macro library contains `star
 
 ```rust
 use regex_macro::load_regex_files;
+load_regex_files!("tests/regex");
 
 fn main() {
-    load_regex_files!("tests/regex");
     let events = EventRE::vec_from_file("tests/samples/events.txt").unwrap();
     println!("{}", serde_json::to_string_pretty(&events).unwrap());
 }
