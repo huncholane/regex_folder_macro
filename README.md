@@ -41,7 +41,8 @@ The abstract structure for matches within the regex_macro library contains `star
 
 ```rust
 use regex_macro::load_regex_files;
-load_regex_files!("tests/regex");
+// Loads the regular expressions within the folder named regex
+load_regex_files!("regex");
 
 fn main() {
     let events = EventRE::vec_from_file("tests/samples/events.txt").unwrap();
