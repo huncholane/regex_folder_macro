@@ -1,4 +1,5 @@
-use regex_macro::load_regex_files;
+use regex_folder_macro::load_regex_files;
+
 load_regex_files!("./tests/regex");
 
 #[test]

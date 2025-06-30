@@ -77,7 +77,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "2b15c43186be67a4fd63bee50d0303afffcef381492ebe2c5d87f324e1b8815c"
 
 [[package]]
-name = "regex_macro"
+name = "regex_folder_macro"
 version = "0.1.1"
 dependencies = [
  "lazy_static",

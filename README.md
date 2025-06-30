@@ -1,4 +1,4 @@
-# regex_macro
+# regex_folder_macro
 
 Allows for named groups in regular expressions to be generated from special files ending in `.re`.
 
