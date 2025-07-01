@@ -10,7 +10,8 @@ pub fn events_vec() {
 
 #[test]
 pub fn events_iter() {
-    let events = EventRE::iter_from_file("./samples/events.txt").unwrap();
+    let mut buf = String::new();
+    let events = EventRE::iter_from_file(&mut buf, "./samples/events.txt").unwrap();
     assert_eq!(events.count(), 13);
 }
 

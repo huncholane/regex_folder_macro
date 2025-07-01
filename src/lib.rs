@@ -125,10 +125,10 @@ pub fn load_regex_files(input: TokenStream) -> TokenStream {
                 }
 
                 /// Gets the raw captures from the contents of a file
-                pub fn captures_from_file<'a>(buffer: &'a mut String, filename: &str) -> Result<Option<regex::Captures<'a>>, std::io::Error> {
-                    buffer.clear();
-                    buffer.push_str(&std::fs::read_to_string(filename)?);
-                    Ok(Self::captures(buffer))
+                pub fn captures_from_file<'a>(buf: &'a mut String, filename: &str) -> Result<Option<regex::Captures<'a>>, std::io::Error> {
+                    buf.clear();
+                    buf.push_str(&std::fs::read_to_string(filename)?);
+                    Ok(Self::captures(buf))
                 }
 
                 /// Gets the raw captures iter
@@ -138,10 +138,10 @@ pub fn load_regex_files(input: TokenStream) -> TokenStream {
                 }
 
                 /// Gets the raw captures iter from the contents of a file
-                pub fn captures_iter_from_file<'a>(buffer: &'a mut String, filename: &str) -> Result<impl Iterator<Item = regex::Captures<'a>> + 'a, std::io::Error> {
-                    buffer.clear();
-                    buffer.push_str(&std::fs::read_to_string(filename)?);
-                    Ok(Self::captures_iter(buffer))
+                pub fn captures_iter_from_file<'a>(buf: &'a mut String, filename: &str) -> Result<impl Iterator<Item = regex::Captures<'a>> + 'a, std::io::Error> {
+                    buf.clear();
+                    buf.push_str(&std::fs::read_to_string(filename)?);
+                    Ok(Self::captures_iter(buf))
                 }
 
                 /// Extracts the first regex match for the given string
@@ -188,9 +188,10 @@ pub fn load_regex_files(input: TokenStream) -> TokenStream {
 
                 /// Extracts all regex matches for the text contents of a given file
                 /// Each match contains a `start_pos`, `end_pos`, and each field for the given class contains `start_pos`, `end_pos`, and `val`
-                pub fn iter_from_file(filename: &str) -> Result<impl Iterator<Item = Self> + '_, std::io::Error> {
-                    let text = std::fs::read_to_string(filename)?;
-                    Ok(Self::iter_from_str(Box::leak(text.into_boxed_str())))
+                pub fn iter_from_file<'a>(buf: &'a mut String, filename: &str) -> Result<impl Iterator<Item = Self> + 'a, std::io::Error> {
+                    buf.clear();
+                    buf.push_str(&std::fs::read_to_string(filename)?);
+                    Ok(Self::iter_from_str(buf))
                 }
 
                 /// Extracts all regex matches for the text contents of a given file
