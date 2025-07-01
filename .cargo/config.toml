@@ -1,4 +1,4 @@
 [alias]
-tr = "test --release"
 e = "run --example"
 b = "build"
+t = "test --tests"

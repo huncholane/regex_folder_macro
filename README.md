@@ -22,7 +22,7 @@ Allows for named groups in regular expressions to be generated from special file
 5. `iter_from_str(text: &str)` Extracts all the matches in a given string.
 6. `iter_from_file(filename: &str)` Extracts all the matches after opening the given filename.
 
-The abstract structure for matches within the regex_macro library contains `start_pos`, `end_pos`, and public fields for each named group inside of the `.re` file. Each field then contains a `start_pos`, `end_pos`, and `val` field.
+The abstract structure for matches within the regex_folder_macro library contains `start_pos`, `end_pos`, and public fields for each named group inside of the `.re` file. Each field then contains a `start_pos`, `end_pos`, and `val` field.
 
 ### Tips
 
@@ -40,12 +40,12 @@ The abstract structure for matches within the regex_macro library contains `star
 ### event.rs
 
 ```rust
-use regex_macro::load_regex_files;
+use regex_folder_macro::load_regex_files;
 // Loads the regular expressions within the folder named regex
 load_regex_files!("regex");
 
 fn main() {
-    let events = EventRE::vec_from_file("tests/samples/events.txt").unwrap();
+    let events = EventRE::vec_from_file("samples/events.txt").unwrap();
     println!("{}", serde_json::to_string_pretty(&events).unwrap());
 }
 ```

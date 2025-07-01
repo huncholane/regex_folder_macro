@@ -107,6 +107,7 @@ pub fn load_regex_files(input: TokenStream) -> TokenStream {
             pub struct #ident {
                 pub start_pos: usize,
                 pub end_pos: usize,
+                pub val: String,
                 #(#fields),*
             }
 
@@ -126,6 +127,7 @@ pub fn load_regex_files(input: TokenStream) -> TokenStream {
                         Some(Self {
                             start_pos: captures.get(0).unwrap().start(),
                             end_pos: captures.get(0).unwrap().end(),
+                            val: captures.get(0).unwrap().as_str().to_string(),
                             #(#field_initializers),*
                         })
                     } else {
@@ -149,6 +151,7 @@ pub fn load_regex_files(input: TokenStream) -> TokenStream {
                             Self {
                                 start_pos: captures.get(0).unwrap().start(),
                                 end_pos: captures.get(0).unwrap().end(),
+                                val: captures.get(0).unwrap().as_str().to_string(),
                                 #(#field_initializers),*
                             }
                         })
