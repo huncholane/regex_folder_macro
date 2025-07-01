@@ -13,7 +13,7 @@ Allows for named groups in regular expressions to be generated from special file
   - `m` (multiline): `^` and `$` match the start and end of lines, not just the entire input.
   - `x` (extended): allows whitespace and comments starting with `#` inside the regex.
 
-### Each regex file is a structure with 4 main implementations
+### Each regex file is a structure with the following implementations
 
 1. `from_str(text: &str)` Finds a single match within the given string.
 2. `from_file(filename: &str)` Finds a single match after opening the given filename.
