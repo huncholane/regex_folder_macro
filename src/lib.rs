@@ -125,6 +125,7 @@ pub fn load_regex_files(input: TokenStream) -> TokenStream {
                 }
 
                 /// Gets the raw captures from the contents of a file
+                /// Buffer is required because captures use references to the original text.
                 pub fn captures_from_file<'a>(buf: &'a mut String, filename: &str) -> Result<Option<regex::Captures<'a>>, std::io::Error> {
                     buf.clear();
                     buf.push_str(&std::fs::read_to_string(filename)?);
@@ -138,6 +139,7 @@ pub fn load_regex_files(input: TokenStream) -> TokenStream {
                 }
 
                 /// Gets the raw captures iter from the contents of a file
+                /// Buffer is required because captures use references to the original text.
                 pub fn captures_iter_from_file<'a>(buf: &'a mut String, filename: &str) -> Result<impl Iterator<Item = regex::Captures<'a>> + 'a, std::io::Error> {
                     buf.clear();
                     buf.push_str(&std::fs::read_to_string(filename)?);
@@ -188,6 +190,7 @@ pub fn load_regex_files(input: TokenStream) -> TokenStream {
 
                 /// Extracts all regex matches for the text contents of a given file
                 /// Each match contains a `start_pos`, `end_pos`, and each field for the given class contains `start_pos`, `end_pos`, and `val`
+                /// Buffer is required because the iterator refers to the original text.
                 pub fn iter_from_file<'a>(buf: &'a mut String, filename: &str) -> Result<impl Iterator<Item = Self> + 'a, std::io::Error> {
                     buf.clear();
                     buf.push_str(&std::fs::read_to_string(filename)?);

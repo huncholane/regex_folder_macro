@@ -15,12 +15,16 @@ Allows for named groups in regular expressions to be generated from special file
 
 ### Each regex file is a structure with the following implementations
 
-1. `from_str(text: &str)` Finds a single match within the given string.
-2. `from_file(filename: &str)` Finds a single match after opening the given filename.
-3. `vec_from_str(text: &str)` Extracts all the matches in a given string.
-4. `vec_from_file(filename: &str)` Extracts all the matches after opening the given filename.
-5. `iter_from_str(text: &str)` Extracts all the matches in a given string.
-6. `iter_from_file(filename: &str)` Extracts all the matches after opening the given filename.
+1. `pub fn from_str(text: &str) -> Option<Self>` Finds a single precompiled struct within the given string.
+2. `pub fn from_file(filename: &str) -> Result<Option<Self>, std::io::Error>` Finds a single precompiled struct after opening the given filename.
+3. `pub fn vec_from_str(text: &str) -> Vec<Self>` Extracts all the precompiled structs in a given string.
+4. `pub fn vec_from_file(filename: &str) -> Result<Vec<Self>, std::io::Error>` Extracts all the precompiled structs after opening the given filename.
+5. `pub fn iter_from_str(text: &str) -> impl Iterator<Item = Self> + '_` Extracts all the precompiled structs in a given string.
+6. `pub fn iter_from_file<'a>(buf: &'a mut String, filename: &str) -> Result<impl Iterator<Item = Self> + 'a, std::io::Error>` Extracts all the precompiled structs after opening the given filename.
+7. `pub fn captures(text:&str) -> Option<regex::Captures<'_>>` Extracts the first match as raw captures.
+8. `pub fn captures_iter(text: &str) -> impl Iterator<Item = regex::Captures<'_>> + '_` Extracts an iterator of raw captures.
+9. `pub fn captures_from_file<'a>(buf: &'a mut String, filename: &str) -> Result<Option<regex::Captures<'a>>, std::io::Error>` Extracts the first match as raw captures from the given file.
+10. `pub fn captures_iter_from_file<'a>(buf: &'a mut String, filename: &str) -> Result<impl Iterator<Item = regex::Captures<'a>> + 'a, std::io::Error>` Extracts raw captures iter from contents of the given file.
 
 The abstract structure for matches within the regex_folder_macro library contains `start_pos`, `end_pos`, and public fields for each named group inside of the `.re` file. Each field then contains a `start_pos`, `end_pos`, and `val` field.
 
@@ -30,8 +34,14 @@ The abstract structure for matches within the regex_folder_macro library contain
 
 ### Benefits
 
-- Files load automatically into precompiled code with macros which allows rust-analyzer to use provide type hints.
+- Files load automatically into precompiled struct with macros which allows rust-analyzer to use provide type hints.
 - Regular expressions can be split over multiple lines and use comments to improve readability for regular expressions.
+
+### Breaking changes
+
+#### 0.0.6 -> 1.0.0
+
+- Functions from files require a buffer
 
 ---
 
