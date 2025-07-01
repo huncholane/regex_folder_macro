@@ -118,12 +118,36 @@ pub fn load_regex_files(input: TokenStream) -> TokenStream {
             }
 
             impl #ident {
+                /// Gets the raw captures
+                pub fn captures(text:&str) -> Option<regex::Captures<'_>> {
+                    let re = &RE.#ident;
+                    re.captures(text)
+                }
+
+                /// Gets the raw captures from the contents of a file
+                pub fn captures_from_file<'a>(buffer: &'a mut String, filename: &str) -> Result<Option<regex::Captures<'a>>, std::io::Error> {
+                    buffer.clear();
+                    buffer.push_str(&std::fs::read_to_string(filename)?);
+                    Ok(Self::captures(buffer))
+                }
+
+                /// Gets the raw captures iter
+                pub fn captures_iter(text: &str) -> impl Iterator<Item = regex::Captures<'_>> + '_ {
+                    let re = &RE.#ident;
+                    re.captures_iter(text)
+                }
+
+                /// Gets the raw captures iter from the contents of a file
+                pub fn captures_iter_from_file<'a>(buffer: &'a mut String, filename: &str) -> Result<impl Iterator<Item = regex::Captures<'a>> + 'a, std::io::Error> {
+                    buffer.clear();
+                    buffer.push_str(&std::fs::read_to_string(filename)?);
+                    Ok(Self::captures_iter(buffer))
+                }
+
                 /// Extracts the first regex match for the given string
                 /// This match contains `start_pos`, `end_pos`, and `val`
                 pub fn from_str(text: &str) -> Option<Self> {
-                    let re = &RE.#ident;
-                    let captures = re.captures(text);
-                    if let Some(captures) = captures {
+                    if let Some(captures) = Self::captures(text) {
                         Some(Self {
                             start_pos: captures.get(0).unwrap().start(),
                             end_pos: captures.get(0).unwrap().end(),
@@ -145,8 +169,7 @@ pub fn load_regex_files(input: TokenStream) -> TokenStream {
                 /// Extracts all regex matches for the given string
                 /// Each match contains a `start_pos`, `end_pos`, and each field for the given class contains `start_pos`, `end_pos`, and `val`
                 pub fn iter_from_str(text: &str) -> impl Iterator<Item = Self> + '_ {
-                    let re = &RE.#ident;
-                    re.captures_iter(text)
+                    Self::captures_iter(text)
                         .map(|captures| {
                             Self {
                                 start_pos: captures.get(0).unwrap().start(),
