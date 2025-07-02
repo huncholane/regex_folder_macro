@@ -6,6 +6,10 @@ Allows for named groups in regular expressions to be generated from special file
 
 ## Usage
 
+### Warnings
+
+- Do not use rust syntax keywords such as type for field names in .re files
+
 ### Initialization
 
 - Call the `load_regex_files!` macro on the directory that contains regex files.
@@ -37,9 +41,15 @@ The abstract structure for matches within the regex_folder_macro library contain
 - Files load automatically into precompiled struct with macros which allows rust-analyzer to use provide type hints.
 - Regular expressions can be split over multiple lines and use comments to improve readability for regular expressions.
 
+### Changes
+
+#### 1.0.1
+
+- Update the docs
+
 ### Breaking changes
 
-#### 0.0.6 -> 1.0.0
+#### 1.0.0
 
 - Functions from files require a buffer
 
